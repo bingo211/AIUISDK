@@ -1,0 +1,15 @@
+EXPORTS
+GetArtistByGender
+GetSongByArtist
+GetMicBySong
+GetArtistByGenre
+GetArtistByArea
+GetArtistByLanguage
+FreeObject
+InitSession
+MvsWeatherScence
+MvsNewsScence
+DestroySession
+IFLY_PLAYER_Start
+IFLY_PLAYER_Destroy
+IFLY_PLAYER_Pause
