@@ -51,7 +51,7 @@ void __ConnectionCallback(bool success)
 void aiuiMgr::mvs_news_scence(const std::string tags, const std::string &category)
 {
     char __req[1024] ={0};
-	int ret = _snprintf_s(__req, sizeof(__req), "我想听%s新闻", tags.data());
+    int ret = _snprintf_s(__req, sizeof(__req), "我想听%s新闻", tags.data());
     __req[ret] = 0;
     appid == DEFAULT_APPID ? vs.sendData(__req,true) : vs.sendRawData(__req,true);
 }
@@ -59,7 +59,7 @@ void aiuiMgr::mvs_news_scence(const std::string tags, const std::string &categor
 void aiuiMgr::mvs_weather_scence(const string &city)
 {
     char __req[128] ={0};
-	int ret = _snprintf_s(__req, sizeof(__req), "%s天气", city.data());
+    int ret = _snprintf_s(__req, sizeof(__req), "%s天气", city.data());
     __req[ret] = 0;
     appid == DEFAULT_APPID ? vs.sendData(__req,true) : vs.sendRawData(__req,true);
 }
@@ -77,11 +77,11 @@ int aiuiMgr::init_session(const std::string &mvs_ip,
     auth_id = _auth_id.empty()? DEFAULT_AUTH_ID : _auth_id;
     skills = _skills.empty()? DEFAULT_SKILLS : _skills;
 	
-	g_mvsUrlCallback = cb;
+    g_mvsUrlCallback = cb;
 
     std::string params = generateParams("720","1280");
     char surl[1024] ={0};
-	int ret = _snprintf_s(surl, sizeof(surl), "ws://%s/tuling/mvs/v2/aiui/11111?params=%s", mvs_ip.data(), params.data());
+    int ret = _snprintf_s(surl, sizeof(surl), "ws://%s/tuling/mvs/v2/aiui/11111?params=%s", mvs_ip.data(), params.data());
     surl[ret] = 0;
 
     vs.startConnection(surl,
