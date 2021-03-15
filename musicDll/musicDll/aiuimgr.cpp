@@ -1,6 +1,7 @@
 #include "aiuimgr.h"
 #include <stdio.h>
 #include "utils.h"
+using namespace std;
 
 std::string appid;
 std::string appkey;
@@ -48,12 +49,30 @@ void __ConnectionCallback(bool success)
    printf("++++++++%d+\n",success);
 }
 
+string gbk2utf8(string gbkStr)
+{
+	string outUtf8 = "";
+	int n = MultiByteToWideChar(CP_ACP, 0, gbkStr.c_str(), -1, NULL, 0);
+	WCHAR *str1 = new WCHAR[n];
+	MultiByteToWideChar(CP_ACP, 0, gbkStr.c_str(), -1,str1, n);
+	n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);
+	char *str2 = new char[n];
+	WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
+	outUtf8 = str2;
+	delete[]str1;
+	str1 = NULL;
+	delete[]str2;
+	str2 = NULL;
+	return outUtf8;
+}
+
 void aiuiMgr::mvs_news_scence(const std::string tags, const std::string &category)
 {
     char __req[1024] ={0};
     int ret = _snprintf_s(__req, sizeof(__req), "我想听%s新闻", tags.data());
     __req[ret] = 0;
-    appid == DEFAULT_APPID ? vs.sendData(__req,true) : vs.sendRawData(__req,true);
+    string utf8_raw = gbk2utf8(__req);
+    appid == DEFAULT_APPID ? vs.sendData(utf8_raw,true) : vs.sendRawData(utf8_raw,true);
 }
 
 void aiuiMgr::mvs_weather_scence(const string &city)
@@ -61,7 +80,8 @@ void aiuiMgr::mvs_weather_scence(const string &city)
     char __req[128] ={0};
     int ret = _snprintf_s(__req, sizeof(__req), "%s天气", city.data());
     __req[ret] = 0;
-    appid == DEFAULT_APPID ? vs.sendData(__req,true) : vs.sendRawData(__req,true);
+    string utf8_raw = gbk2utf8(__req);
+    appid == DEFAULT_APPID ? vs.sendData(utf8_raw,true) : vs.sendRawData(utf8_raw,true);
 }
 
 int aiuiMgr::init_session(const std::string &mvs_ip,
