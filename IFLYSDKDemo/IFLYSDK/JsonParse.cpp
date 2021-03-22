@@ -13,8 +13,8 @@ JsonParse::~JsonParse(void)
 
 
 /**
-* @brief httpclient::parse  解析aiuiresult结果
-* @param aiuiJson   aiui结果
+* @brief httpclient::parse  陆芒脦枚aiuiresult陆谩鹿没
+* @param aiuiJson   aiui陆谩鹿没
 * @return
 */
 AiuiResult* JsonParse::parse(const std::string& aiuiJson)
@@ -34,12 +34,19 @@ AiuiResult* JsonParse::parse(const std::string& aiuiJson)
 	}
 
 	AiuiResult *aiuiresult = new AiuiResult;
-	aiuiresult->Rc = v.get("rc").get<string>();
-	aiuiresult->Msg = v.get("msg").get<string>();
-	aiuiresult->Offset = v.get("offset").get<string>();
-	aiuiresult->Limit = v.get("limit").get<string>();
-	aiuiresult->Sid = v.get("sid").get<string>();
-	aiuiresult->Total = v.get("total").get<string>();
+	
+	if (v.contains("rc"))
+		aiuiresult->Rc = v.get("rc").get<string>();
+	if (v.contains("msg"))
+		aiuiresult->Msg = v.get("msg").get<string>();
+	if (v.contains("offset"))
+		aiuiresult->Offset = v.get("offset").get<string>();
+	if (v.contains("limit"))
+		aiuiresult->Limit = v.get("limit").get<string>();
+	if (v.contains("sid"))
+		aiuiresult->Sid = v.get("sid").get<string>();
+	if (v.contains("total"))
+		aiuiresult->Total = v.get("total").get<string>();
 
 	if (aiuiresult->Rc == "0") {
 		auto _result = v.get("result");
